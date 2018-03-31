@@ -391,7 +391,7 @@ Dr. Shiqi Zhang}}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-While Unmanned Aerial Vehicles (UAVs) and Unmanned Ground Vehicles (UGVs) technologies continue to advance, develop, and gain popularity, they are held back by a variety of limitations. Most notably, drones are limited by their short battery supply, which prevents a user from prolonged usage on a single charge. On the contrary, UGVs, such as Turtlebots, can sustain battery life for longer periods of time, but may be limited in mobility due to obstacles such as a staircase.With our design, we hope to eliminate these limitations by allowing for UAVs and UGVs to collaborate in order to take advantage of each other’s strengths. One of our objectives is to create autonomy between the vehicles in order to create a hassle-free environment for the user. One approach to establishing this autonomy is creating communication through the usage of their on-board cameras and unique identifiers such as QR codes. This study was conducted in a closed, indoor environment using a Parrot Bebop 2 and a Turtlebot with their respective onboard cameras. In doing so, any excessive factors that may hinder the progress of the project, such as wind, observers, lack of a steady network, and "background noise", were eradicated.  
+While Unmanned Aerial Vehicles (UAVs) and Unmanned Ground Vehicles (UGVs) technologies continue to advance, develop, and gain popularity, they are held back by a general variety of limitations. Most notably, drones are limited by their short battery supply, which prevents a user from prolonged usage on a single charge. On the contrary, UGVs, such as Turtlebots, can sustain battery life for longer periods of time, but may be limited in mobility due to obstacles such as a staircase.With our design, we hope to eliminate these limitations by allowing for UAVs and UGVs to collaborate in order to take advantage of each other’s strengths. One of our objectives is to create autonomy between the vehicles in order to create a hassle-free environment for the user. One approach to establishing this autonomy is creating communication through the usage of their on-board cameras and unique identifiers such as QR codes. This study was conducted in a closed, indoor environment using a Parrot Bebop 2 and a Turtlebot with their respective onboard cameras. In doing so, any excessive factors that may hinder the progress of the project, such as wind, observers, lack of a steady network, and "background noise", were eradicated.  
 \end{abstract}
 
 % no keywords
@@ -411,25 +411,25 @@ While Unmanned Aerial Vehicles (UAVs) and Unmanned Ground Vehicles (UGVs) techno
 
 
 
-\section{Introduction}
+\section{Approach}
 % no \IEEEPARstart
-Introduction goes here... 
+The primary objective of our research is to create a collaboration in which the UAV autonomously lands upon the UGV and completes a task, such as taking a picture, at the command of the human user. In order for this objective to remain inherent to the scope of our research, all entities must act autonomous in nature, and must work together to form an effective and efficient collaboration. The selected approach in fulfilling this objective was significantly influenced by the hardware capabilities. Specifically, the selected UAV, the Bebop 2, lacks an accessible depth sensor, and relies solely upon the onboard RGB camera. As a result, navigating the Bebop 2 must be conducted through the use of QR codes and communication with the UGV, the Turtlebot 2. 
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
 
 
-\hfill mds
- 
-\hfill August 26, 2015
+\subsection{QR Codes}
+By enabling the RGB camera aboard the UAV to read QR codes posted throughout the testing environment, the vehicle will become less dependent upon the user and more dependent upon itself. Different QR codes may be tied to different preprogrammed protocals. For example, a QR code mounted upon the UGV would be linked to the UAV's landing protocol. Upon successfully scanning the respective QR code, the UAV will align itself as necessary and attempt to land on the UGV.  
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+
+\subsection{Communication}
+Through the use of server client socket communication, the UAV and UGV are able to send simple strings back and forth. This would allow for them to notify each other of their current status. For example, despite reading the appropriate QR code, the UAV will not initialize the landing sequence until the UGV gives the necessary status update, such as "idle". In doing so, the UAV will not attempt to land upon the UGV while the UGV is still in motion. 
 
 
 \subsubsection{Subsubsection Heading Here}
 Subsubsection text here.
 
-\section{Another Section}
+\section{Experiments}
 
 
 % An example of a floating figure using the graphicx package.
