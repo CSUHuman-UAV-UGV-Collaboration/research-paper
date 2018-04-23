@@ -391,7 +391,7 @@ Dr. Shiqi Zhang}}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-While Unmanned Aerial Vehicles (UAVs) and Unmanned Ground Vehicles (UGVs) technologies continue to advance, develop, and gain popularity, they are held back by a general variety of limitations. Most notably, drones are limited by their short battery supply, which prevents a user from prolonged usage on a single charge. On the contrary, UGVs, such as Turtlebots, can sustain battery life for longer periods of time, but may be limited in mobility due to obstacles such as a staircase.With our design, we hope to eliminate these limitations by allowing for UAVs and UGVs to collaborate in order to take advantage of each other’s strengths. One of our objectives is to create autonomy between the vehicles in order to create a hassle-free environment for the user. One approach to establishing this autonomy is creating communication through the usage of their on-board cameras and unique identifiers such as QR codes. This study was conducted in a closed, indoor environment using a Parrot Bebop 2 and a Turtlebot with their respective onboard cameras. In doing so, any excessive factors that may hinder the progress of the project, such as wind, observers, lack of a steady network, and "background noise", were eradicated.  
+
 \end{abstract}
 
 % no keywords
@@ -413,17 +413,24 @@ While Unmanned Aerial Vehicles (UAVs) and Unmanned Ground Vehicles (UGVs) techno
 
 \section{Approach}
 % no \IEEEPARstart
-The primary objective of our research is to create a collaboration in which the UAV autonomously lands upon the UGV and completes a task, such as taking a picture, at the command of the human user. In order for this objective to remain inherent to the scope of our research, all entities must act autonomous in nature, and must work together to form an effective and efficient collaboration. The selected approach in fulfilling this objective was significantly influenced by the hardware capabilities. Specifically, the selected UAV, the Bebop 2, lacks an accessible depth sensor, and relies solely upon the onboard RGB camera. As a result, navigating the Bebop 2 must be conducted through the use of QR codes and communication with the UGV, the Turtlebot 2. 
+            Our approach to execute a collaborative system between an aerial and a ground robot started with the implementation of the open source middleware Robot Operating System (ROS). ROS is a collection of tools, libraries, and conventions that aim to provide greater access to a wide variety of robotic hardware in order to allow for more robust and complex robotic behavior. ROS was developed in the early 2000s by multiple researchers at multiple universities for multiple different robot platforms. The idea was that through collaborative robotics research, all can advance their knowledge and development quicker and more thoroughly as opposed to separately. We used ROS version Kinetic (released in May 2016) as it was the newest version available when we began our research. We used ROS Kinetic on computers running the Linux operating system build Ubuntu 16.04.
+
+            Constructing a system in which multiple robots operating independently requires the utilization of multiple ROS ‘masters’. While there are multiple approaches to this within the ROS community, we found them to be too robust and computationally heavy for our purposes and chose to implement our own. Since our collaboration is based in message communication between the robots, rather than implementing a ROS multi-master system, we opted to run individual ROS masters on two separate computers (one for each robot) and develop a TCP server-client model that can pass simple messages between the two computers over Wi-Fi. The robots can then send messages to the clients and the server can pass the messages between the computers so that each robot can observe the state of the other. The Wi-Fi network is provided by the aerial robot itself, the Parrot Bebop 2 Power drone, and has a range of approximately 300 meters.
+
+            Each robot operates according to its own task while constantly updating a topic in ROS that informs the other robot of its current state (i.e. moving, stationary, landing, etc.). Based on one robot’s state, the other robot may adjust its execution of a task to better accommodate the other robot or maintain safety during operation. For example, if the UGV is currently moving, and the UAV is currently performing the task of landing, the UAV may wait or follow the UGV until it is stationary again and then proceed to land safely.
+
+            The ground robot, whose primarily responsible for navigating the environment, uses a Simultaneous Localization and Mapping (SLAM) algorithm to create and utilize a map of the given space. Localization for the ground robot is achieved using Adaptive Monte Carlo Localization (AMCL).
+
+            The aerial robot needs to be able to take off and land safely on the ground robot and this is achieved by tracking an Augmented Reality (AR) marker. The camera on the UAV tracks the marker, measuring its orientation to the marker in quaternions. A Python script then translates those measurements into Euler headings, and directs the UAV to approach the marker in such a way as to line itself up lock onto the marker and then start its descent. If at any point in the UAV loses its lock on the AR marker, it stops its descent, readjusts its position in order to relock, and then continues its landing procedure.
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
 
 
-\subsection{QR Codes}
-By enabling the RGB camera aboard the UAV to read QR codes posted throughout the testing environment, the vehicle will become less dependent upon the user and more dependent upon itself. Different QR codes may be tied to different preprogrammed protocals. For example, a QR code mounted upon the UGV would be linked to the UAV's landing protocol. Upon successfully scanning the respective QR code, the UAV will align itself as necessary and attempt to land on the UGV.  
+\subsection{Subsection}
 
 
-\subsection{Communication}
-Through the use of server client socket communication, the UAV and UGV are able to send simple strings back and forth. This would allow for them to notify each other of their current status. For example, despite reading the appropriate QR code, the UAV will not initialize the landing sequence until the UGV gives the necessary status update, such as "idle". In doing so, the UAV will not attempt to land upon the UGV while the UGV is still in motion. 
+
+\subsection{Another Subsection} 
 
 
 \subsubsection{Subsubsection Heading Here}
