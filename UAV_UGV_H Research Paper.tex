@@ -409,7 +409,8 @@ Dr. Shiqi Zhang}}
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
-
+\section{Introduction}
+	We set out to investigate the possibilities of creating a collaborative system between a UAV (unmanned aerial vehicle) and a UGV (unmanned ground vehicle). We decided to focus on the landing-takeoff problem, trying to develop a system for the UAV to safely and reliably take off from and land on the ground robot. We also focused on developing a method for the robots to autonomously identify safe areas for takeoffs and landings of the UAV.
 
 \section{Approach}
 % no \IEEEPARstart
@@ -421,15 +422,9 @@ Dr. Shiqi Zhang}}
 
             The ground robot, whose primarily responsible for navigating the environment, uses a Simultaneous Localization and Mapping (SLAM) algorithm to create and utilize a map of the given space. Localization for the ground robot is achieved using Adaptive Monte Carlo Localization (AMCL).
 
-            The aerial robot needs to be able to take off and land safely on the ground robot and this is achieved by tracking an Augmented Reality (AR) marker. The camera on the UAV tracks the marker, measuring its orientation to the marker in quaternions. A Python script then translates those measurements into Euler headings, and directs the UAV to approach the marker in such a way as to line itself up lock onto the marker and then start its descent. If at any point in the UAV loses its lock on the AR marker, it stops its descent, readjusts its position in order to relock, and then continues its landing procedure.
-
-	Autonomous identification of safe landing and takeoff zones is achieved through the implementation of artificial potential fields. Artificial potential fields programmatically generate an attractive or repulsive force to objects or voids within an area. The ground robot is repulsed by potential obstacles that could impair a safe drone landing.
+            The aerial robot needs to be able to take off and land safely on the ground robot and this is achieved by tracking an Augmented Reality (AR) marker. The camera on the UAV tracks the marker, measuring its orientation to the marker in quaternions. A Python script then translates those measurements into Euler headings, and directs the UAV to approach the marker in such a way as to line itself up lock onto the marker and then start its descent. If at any point in the UAV loses its lock on the AR marker, it stops its descent, readjusts its position in order to relock, and then continues its landing procedure.Autonomous identification of safe landing and takeoff zones is achieved through the implementation of artificial potential fields. Artificial potential fields programmatically generate an attractive or repulsive force to objects or voids within an area. The ground robot is repulsed by potential obstacles that could impair a safe drone landing.
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
-
-
-\section{Introduction}
-	We set out to investigate the possibilities of creating a collaborative system between a UAV (unmanned aerial vehicle) and a UGV (unmanned ground vehicle). We decided to focus on the landing-takeoff problem, trying to develop a system for the UAV to safely and reliably take off from and land on the ground robot. We also focused on developing a method for the robots to autonomously identify safe areas for takeoffs and landings of the UAV.
 
 
 \subsection{Another Subsection} 
